@@ -1,3 +1,10 @@
 print("Hello world")
-print("How the hell can I update this content to the fucking github?!")
-print("Now let's make things even faster")
+print("First string" + ", " + "second string")                  #print with strings
+my_age = "32"
+
+my_desired_age = int(my_age) - 10                               #unit conversion
+
+my_boolean = True
+print(my_boolean)                                               #booleans
+print(2 == 3)
+
