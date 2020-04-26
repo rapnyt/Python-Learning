@@ -70,5 +70,12 @@ def my_dick(k): # functions
     print("This won't be printed")
 
 
-z = my_dick(10)
+def do_twice(func,x):
+    return func(func(x),func(x))
+
+
+z = my_dick
+print(z(50))
+
+z = do_twice(my_dick,6,6)
 print(z)
