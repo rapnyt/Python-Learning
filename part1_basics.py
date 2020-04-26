@@ -63,6 +63,12 @@ for skfhdklfh in words: # for loops
 for j in range(5):
     print("fuck ")
 
-def my_dick():
-    print("Its so big")
-my_dick()
+
+def my_dick(k): # functions
+    print(k)
+    return k
+    print("This won't be printed")
+
+
+z = my_dick(10)
+print(z)
