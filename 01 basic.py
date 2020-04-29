@@ -1,5 +1,5 @@
 '''
-Here are all the required base basics
+Here are all the required base basics and everything thanks to SoloLearn - all rights reserved. This is for my own usage
 '''
 
 print("Hello world")
@@ -57,6 +57,7 @@ print(empty_list.index("to be"))
 
 numbers = list(range(10,20,3)) # range
 print(numbers)
+del numbers
 
 for skfhdklfh in words: # for loops
     print(str(skfhdklfh) + "!")
