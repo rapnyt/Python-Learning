@@ -69,13 +69,13 @@ def my_dick(k): # functions
     return k
     print("This won't be printed")
 
-
-def do_twice(func,x):
-    return func(func(x),func(x))
-
-
 z = my_dick
 print(z(50))
 
-z = do_twice(my_dick,6,6)
-print(z)
+import random as ran
+from math import pi as pi_number
+
+value = ran.randint(1,6)
+pi = pi_number
+
+print(value, pi_number)
