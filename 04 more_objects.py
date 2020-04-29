@@ -50,18 +50,29 @@ if any(i < 0 for i in list_s):
 
 for sjfldsjflsk in enumerate(list_s):
     print(sjfldsjflsk)
-alphabet_string = "abcdefghijklopqrstuvwxyz"
-def count_alphabet():
-    for char in alphabet_string:
-        percentage = 100 *
 
+
+def count_char(text,char):
+    count = 0
+    for c in text:
+        if c == char:
+            count += 1
+    return count
+
+
+filename = input("Enter full filename without extension: ")
+filename += ".txt"
 try:
-    filename = input("Enter full filename: ")
     with open(filename) as f:
         text = f.read()
         print(text)
-finally:
+        alphabet_string = "abcdefghijklopqrstuvwxyz"
+        for char in alphabet_string:
+            percentage = 100 * count_char(text, char) / len(text)
+            print("{0} {1}%".format(char,round(percentage,5)))
     f.close()
+except:
+    print("There is no such file in the directory")
 
 
 '''
