@@ -38,7 +38,28 @@ Sending "a" means append mode, for adding new content to the end of the file.
 
 Adding "b" to a mode opens it in binary mode, which is used for non-text files (such as image and sound files).
 '''
+try:
+    with open("filename.txt","w") as f:
+        amount_written = f.write("ksjhfdskjfhdskfhsd")
+        print(amount_written)
+finally:
+    f.close()
+try:
+    myfile = open("filename.txt","w")
+    amount_written = myfile.write("I like learning coding in python")
+    print(amount_written) # how many bites have been written
+finally:
+    myfile.close()
 
-myfile = open("filename.txt","w")
-print("I like learning coding in python")
-myfile.close()
+try:
+    myfile = open("filename.txt","r")
+    content = myfile.read(16)
+    print(content)
+finally:
+    myfile.close()
+
+try:
+    myfile = open("filename.txt","r")
+    print(myfile.readlines())
+finally:
+    myfile.close()
