@@ -42,7 +42,6 @@ print(min(list_s))
 print(max(list_s))
 print(abs(list_s[3]))
 print(sum(list_s))
-
 if all(i > 0 for i in list_s):
     print("hahahaha")
 
@@ -51,6 +50,19 @@ if any(i < 0 for i in list_s):
 
 for sjfldsjflsk in enumerate(list_s):
     print(sjfldsjflsk)
+alphabet_string = "abcdefghijklopqrstuvwxyz"
+def count_alphabet():
+    for char in alphabet_string:
+        percentage = 100 *
+
+try:
+    filename = input("Enter full filename: ")
+    with open(filename) as f:
+        text = f.read()
+        print(text)
+finally:
+    f.close()
+
 
 '''
 The following are some immutable objects:
