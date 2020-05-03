@@ -21,6 +21,7 @@ result = list(filter(lambda x: x%5 == 0,list(map(lambda x: x+5,nums))))
 result = list(filter(lambda x: x%5 == 0,nums))
 
 print(result)
+print("")
 
 
 def countdown_timer():
