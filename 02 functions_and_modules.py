@@ -13,3 +13,16 @@ value = ran.randint(1,6)
 pi = pi_number
 
 print(value, pi_number)
+
+
+def apply_twice(func,arg):
+    return func(func(arg))
+
+
+def add_five(x):
+    print("lalala")
+    return x+5
+
+
+print(apply_twice(add_five,10))
+
