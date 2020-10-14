@@ -1,36 +1,39 @@
 import random
 win_or_loose_count = 0
+tries_range = 1
+numb_gates = 7
 
-for i in range(1,2):
+
+for i in range(1,tries_range+1):
 
     x = {}
 
-    for i in range(1,4):
+    for i in range(1,numb_gates+1):
         x[i] = False
 
-    x[random.randint(1,3)] = True
+    x[random.randint(1,numb_gates)] = True
 
     for i in x:
         print(x[i])
 
-    picked_gate = random.randint(1,3)
-    random_empty_gate_open = random.randint(1,3)
-    while x[random_empty_gate_open] == True:
-        random_empty_gate_open = random.randint(1, 3)
+    picked_gate = random.randint(1,numb_gates)
+    opened_gate = random.randint(1,numb_gates)
+
+    if opened_gate == picked_gate or x[opened_gate] == True:
+        while opened_gate == picked_gate or x[opened_gate] == True:
+            opened_gate = random.randint(1,numb_gates)
 
     for i in x:
-        if x[i] == False and i == random_empty_gate_open:
+        if x[i] == True or i == opened_gate:
+            None
+        else:
             x[i] = None
-
-    print("picked gate ", picked_gate)
-    print("random empty gate ", random_empty_gate_open)
 
     if x[picked_gate]:
         win_or_loose_count += 1
 
+    print("---------------------------------------------")
     for i in x:
         print(x[i])
 
-print("count ", win_or_loose_count)
-success_rate = win_or_loose_count/1 * 100
-print("success rate ", success_rate, "%")
+
