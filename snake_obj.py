@@ -1,21 +1,20 @@
-import pygame, sys
-from snake_launch import Launch
+import pygame
+import sys
+
 
 class Game(object):
 
     def __init__(self):
         # Config
         self.fps = 5
-        self.resolution = (1280,720)
-        self.box = pygame.Rect(10,10,20,20)
+        self.resolution = (1280, 720)
+        self.box = pygame.Rect(10, 10, 20, 20)
 
         # Init
         pygame.init()
         self.display = pygame.display.set_mode(self.resolution)
         self.fps_clock = pygame.time.Clock()
         self.fps_delta = 0.0
-
-        self.player = Launch(self)
 
         while True:
             # handle events
@@ -37,7 +36,6 @@ class Game(object):
             pygame.display.flip()
 
     def tick(self):
-        self.player.tick()
         # input
         keys = pygame.key.get_pressed()
         if keys[pygame.K_KP_2]:
@@ -58,7 +56,7 @@ class Game(object):
             self.box.y = 720
 
     def draw(self):
-        self.player.draw()
+        pygame.draw.rect(self.display, (245, 125, 20), self.box)
 
 
 if __name__ == "__main__":
