@@ -47,11 +47,13 @@ class Game(object):
         if keys[pygame.K_KP8]:
             self.box.y -= 20
 
-
     def draw(self):
         pygame.draw.rect(self.display, (245, 125, 20), self.box)
+        pygame.draw.rect(self.display, (255, 255, 255), pygame.Rect(110, 110, 1, 1))
         pygame.draw.lines(self.display, (255, 255, 255), True, [(100, 100), (600, 100), (600, 600), (100, 600)])
-
+        for i in range(110, 600, 20):
+            for j in range(110, 600, 20):
+                pygame.draw.rect(self.display, (255, 255, 255), pygame.Rect(i, j, 1, 1))
 
 if __name__ == "__main__":
     Game()
