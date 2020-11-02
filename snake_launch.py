@@ -10,6 +10,7 @@ class Launch(object):
         pass
 
     def draw(self):
-        pygame.draw.rect(self.game., (245, 125, 20), self.box)
+        pygame.draw.rect(self.game.display, (245, 125, 20), self.game.box)
+
 
 
