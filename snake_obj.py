@@ -34,6 +34,7 @@ class Game(object):
             self.display.fill((0, 0, 0))
             self.draw()
             pygame.display.flip()
+            self.field_matrix_table()
 
     def tick(self):
         # input
@@ -56,15 +57,16 @@ class Game(object):
                 pygame.draw.rect(self.display, (255, 255, 255), pygame.Rect(i, j, 1, 1))
 
     def field_matrix_table(self):
+        self.matrix_table = []
+        for i in range(110, 600, 20):
+            for j in range(110, 600, 20):
+                self.matrix_table.append((i,j,False))
         pass
 
     def new_apple(self):
         pass
 
     def snake_movement(self):
-        pass
-
-    def snake_growth(self):
         pass
 
 

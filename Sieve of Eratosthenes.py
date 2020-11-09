@@ -6,7 +6,7 @@ for i in range(2, desired_range + 1):
     x.append(i)
 
 for i in x:
-    if i < math.sqrt(desired_range):
+    if i*i < desired_range:
         for j in range(2, math.ceil(desired_range/i + 1)):
             try:
                 x.remove(i*j)
