@@ -6,7 +6,7 @@ class Game(object):
 
     def __init__(self):
         # Config
-        self.fps = 5
+        self.fps = 1
         self.resolution = (1280, 720)
         self.box = pygame.Rect(100, 100, 20, 20)
 
@@ -54,6 +54,19 @@ class Game(object):
         for i in range(110, 600, 20):
             for j in range(110, 600, 20):
                 pygame.draw.rect(self.display, (255, 255, 255), pygame.Rect(i, j, 1, 1))
+
+    def field_matrix_table(self):
+        pass
+
+    def new_apple(self):
+        pass
+
+    def snake_movement(self):
+        pass
+
+    def snake_growth(self):
+        pass
+
 
 if __name__ == "__main__":
     Game()
