@@ -7,9 +7,8 @@ class Game(object):
 
     def __init__(self):
         # Config
-        self.fps = 1
+        self.fps = 20
         self.resolution = (1280, 720)
-        self.box = pygame.Rect(100, 100, 20, 20)
         self.matrix_table = []
         for i in range(100, 590, 20):
             for j in range(100, 590, 20):
@@ -37,6 +36,10 @@ class Game(object):
                 self.tick()
                 self.fps_delta -= 1 / self.fps
 
+            #eating apple
+            if self.snake_parts_position[0] == self.new_apple_index:
+                self.new_apple()
+
             # drawing
             self.display.fill((0, 0, 0))
             self.draw()
@@ -46,17 +49,19 @@ class Game(object):
         # input
         keys = pygame.key.get_pressed()
         if keys[pygame.K_KP_2]:
-            self.box.y += 20
+            self.snake_parts_position[0] += 1
         if keys[pygame.K_KP_4]:
-            self.box.x -= 20
+            self.snake_parts_position[0] -= 25
         if keys[pygame.K_KP_6]:
-            self.box.x += 20
+            self.snake_parts_position[0] += 25
         if keys[pygame.K_KP_8]:
-            self.box.y -= 20
+            self.snake_parts_position[0] -= 1
 
     def draw(self):
-        pygame.draw.rect(self.display, (245, 125, 20), self.box)
+        for i in self.snake_parts_position:
+            pygame.draw.rect(self.display, (245, 125, 20), pygame.Rect(self.matrix_table[i][0], self.matrix_table[i][1], 20, 20))
         pygame.draw.rect(self.display, (0, 255, 0), pygame.Rect(self.a, self.b, 20, 20))
+
         # dots and brackets
         pygame.draw.rect(self.display, (255, 255, 255), pygame.Rect(110, 110, 1, 1))
         pygame.draw.lines(self.display, (255, 255, 255), True, [(100, 100), (600, 100), (600, 600), (100, 600)])
@@ -65,9 +70,9 @@ class Game(object):
                 pygame.draw.rect(self.display, (255, 255, 255), pygame.Rect(i, j, 1, 1))
 
     def new_apple(self):
-        new_apple_index = random.randint(1, len(self.matrix_table) - 1)
-        self.a = self.matrix_table[new_apple_index][0]
-        self.b = self.matrix_table[new_apple_index][1]
+        self.new_apple_index = random.randint(1, len(self.matrix_table) - 1)
+        self.a = self.matrix_table[self.new_apple_index][0]
+        self.b = self.matrix_table[self.new_apple_index][1]
 
     def snake_movement(self):
         pass
