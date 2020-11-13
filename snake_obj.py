@@ -7,13 +7,14 @@ class Game(object):
 
     def __init__(self):
         # Config
-        self.fps = 20
+        self.fps = 5
         self.resolution = (1280, 720)
         self.matrix_table = []
         for i in range(100, 590, 20):
             for j in range(100, 590, 20):
                 self.matrix_table.append((i, j))
         self.snake_parts_position = [0]
+        self.snake_movement = 25
         self.new_apple()
 
         # Init
@@ -38,24 +39,54 @@ class Game(object):
 
             #eating apple
             if self.snake_parts_position[0] == self.new_apple_index:
+                self.snake_parts_position.append(self.new_apple_index)
                 self.new_apple()
 
             # drawing
             self.display.fill((0, 0, 0))
             self.draw()
             pygame.display.flip()
+            print(self.snake_parts_position)
 
     def tick(self):
         # input
         keys = pygame.key.get_pressed()
         if keys[pygame.K_KP_2]:
-            self.snake_parts_position[0] += 1
+            # self.snake_parts_position[0] += 1
+            self.snake_movement = 1
         if keys[pygame.K_KP_4]:
-            self.snake_parts_position[0] -= 25
+            # self.snake_parts_position[0] -= 25
+            self.snake_movement = -25
         if keys[pygame.K_KP_6]:
-            self.snake_parts_position[0] += 25
+            # self.snake_parts_position[0] += 25
+            self.snake_movement = 25
         if keys[pygame.K_KP_8]:
-            self.snake_parts_position[0] -= 1
+            # self.snake_parts_position[0] -= 1
+            self.snake_movement = -1
+
+        try:
+            if len(self.snake_parts_position) > 1:
+                for i in range(len(self.snake_parts_position) - 1, -1, -1):
+                    if i > 0:
+                        self.snake_parts_position[i] = self.snake_parts_position[i - 1]
+                    elif i == 0:
+                        self.snake_parts_position[0] += self.snake_movement
+            else:
+                self.snake_parts_position[0] += self.snake_movement
+        except:
+            pass
+            print(i,"index error")
+        # if len(self.snake_parts_position) > 1:
+        #     for i in self.snake_parts_position:
+        #         if self.snake_parts_position.index(i) == 0:
+        #             self.temp = i
+        #             self.snake_parts_position[self.snake_parts_position.index(i)] += self.snake_movement
+        #         else:
+        #             self.temp2 = self.snake_parts_position[self.snake_parts_position.index(i)]
+        #             self.snake_parts_position[self.snake_parts_position.index(i)] = self.temp
+        #
+        # else:
+        #     self.snake_parts_position[0] += self.snake_movement
 
     def draw(self):
         for i in self.snake_parts_position:
@@ -74,8 +105,7 @@ class Game(object):
         self.a = self.matrix_table[self.new_apple_index][0]
         self.b = self.matrix_table[self.new_apple_index][1]
 
-    def snake_movement(self):
-        pass
+
 
 
 if __name__ == "__main__":
