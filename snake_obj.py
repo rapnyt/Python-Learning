@@ -35,12 +35,8 @@ class Game(object):
             self.fps_delta += self.fps_clock.tick() / 1000.0
             while self.fps_delta > 1 / self.fps:
                 self.tick()
+                self.eating_apple()
                 self.fps_delta -= 1 / self.fps
-
-            #eating apple
-            if self.snake_parts_position[0] == self.new_apple_index:
-                self.snake_parts_position.append(self.new_apple_index)
-                self.new_apple()
 
             # drawing
             self.display.fill((0, 0, 0))
@@ -52,16 +48,12 @@ class Game(object):
         # input
         keys = pygame.key.get_pressed()
         if keys[pygame.K_KP_2]:
-            # self.snake_parts_position[0] += 1
             self.snake_movement = 1
         if keys[pygame.K_KP_4]:
-            # self.snake_parts_position[0] -= 25
             self.snake_movement = -25
         if keys[pygame.K_KP_6]:
-            # self.snake_parts_position[0] += 25
             self.snake_movement = 25
         if keys[pygame.K_KP_8]:
-            # self.snake_parts_position[0] -= 1
             self.snake_movement = -1
 
         try:
@@ -75,18 +67,6 @@ class Game(object):
                 self.snake_parts_position[0] += self.snake_movement
         except:
             pass
-            print(i,"index error")
-        # if len(self.snake_parts_position) > 1:
-        #     for i in self.snake_parts_position:
-        #         if self.snake_parts_position.index(i) == 0:
-        #             self.temp = i
-        #             self.snake_parts_position[self.snake_parts_position.index(i)] += self.snake_movement
-        #         else:
-        #             self.temp2 = self.snake_parts_position[self.snake_parts_position.index(i)]
-        #             self.snake_parts_position[self.snake_parts_position.index(i)] = self.temp
-        #
-        # else:
-        #     self.snake_parts_position[0] += self.snake_movement
 
     def draw(self):
         for i in self.snake_parts_position:
@@ -105,7 +85,10 @@ class Game(object):
         self.a = self.matrix_table[self.new_apple_index][0]
         self.b = self.matrix_table[self.new_apple_index][1]
 
-
+    def eating_apple(self):
+        if self.snake_parts_position[0] == self.new_apple_index:
+            self.snake_parts_position.append(self.new_apple_index)
+            self.new_apple()
 
 
 if __name__ == "__main__":
