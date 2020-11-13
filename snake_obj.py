@@ -25,9 +25,8 @@ class Game(object):
         self.display = pygame.display.set_mode(self.resolution)
         self.fps_clock = pygame.time.Clock()
         self.fps_delta = 0.0
-        running = True
 
-        while running:
+        while True:
             # handle events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -45,12 +44,13 @@ class Game(object):
                 self.fps_delta -= 1 / self.fps
 
             # drawing
+            print(self.snake_parts_position)
             self.display.fill((0, 0, 0))
             self.draw()
             pygame.display.flip()
 
     def tick(self):
-        # input
+        input
         keys = pygame.key.get_pressed()
         if keys[pygame.K_KP_2]:
             self.snake_movement = 1
@@ -96,11 +96,14 @@ class Game(object):
 
     def eating_apple(self):
         if self.snake_parts_position[0] == self.new_apple_index:
+            self.snake_parts_position[0] += self.snake_movement
             self.snake_parts_position.append(self.new_apple_index)
             self.new_apple()
 
     def game_over(self):
         if self.matrix_table[self.snake_parts_position[0]][0] == 580 and self.snake_movement == 25 or self.matrix_table[self.snake_parts_position[0]][1] == 100 and self.snake_movement == -1 or self.matrix_table[self.snake_parts_position[0]][0] == 100 and self.snake_movement == -25 or self.matrix_table[self.snake_parts_position[0]][1] == 580 and self.snake_movement == 1:
+            self.show_go_screen()
+        if len(self.snake_parts_position) != len(set(self.snake_parts_position)):
             self.show_go_screen()
 
     def draw_text(self, surf, text, size, x, y):
@@ -115,31 +118,12 @@ class Game(object):
         self.draw_text(self.display, "Press a key to Continue", 18, 350, 400)
         pygame.display.flip()
         waiting = True
-        # Copied initial data
-        self.fps = 5
-        self.resolution = (1280, 720)
-        self.matrix_table = []
-        for i in range(100, 590, 20):
-            for j in range(100, 590, 20):
-                self.matrix_table.append((i, j))
-        self.snake_parts_position = [0]
-        self.snake_movement = 25
-        self.new_apple_index = random.randint(1, len(self.matrix_table) - 1)
-        self.a = self.matrix_table[self.new_apple_index][0]
-        self.b = self.matrix_table[self.new_apple_index][1]
-        self.font_name = pygame.font.match_font('arial')
-
-        # Init
-        pygame.init()
-        self.display = pygame.display.set_mode(self.resolution)
-        self.fps_clock = pygame.time.Clock()
-        self.fps_delta = 0.0
-        running = True
         while waiting:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                 if event.type == pygame.KEYUP:
+                    self.__init__()
                     waiting = False
 
 
