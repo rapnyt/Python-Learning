@@ -15,15 +15,19 @@ class Game(object):
                 self.matrix_table.append((i, j))
         self.snake_parts_position = [0]
         self.snake_movement = 25
-        self.new_apple()
+        self.new_apple_index = random.randint(1, len(self.matrix_table) - 1)
+        self.a = self.matrix_table[self.new_apple_index][0]
+        self.b = self.matrix_table[self.new_apple_index][1]
+        self.font_name = pygame.font.match_font('arial')
 
         # Init
         pygame.init()
         self.display = pygame.display.set_mode(self.resolution)
         self.fps_clock = pygame.time.Clock()
         self.fps_delta = 0.0
+        running = True
 
-        while True:
+        while running:
             # handle events
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -35,6 +39,7 @@ class Game(object):
             self.fps_delta += self.fps_clock.tick() / 1000.0
             while self.fps_delta > 1 / self.fps:
                 self.tick()
+                self.game_over()
                 self.movement()
                 self.eating_apple()
                 self.fps_delta -= 1 / self.fps
@@ -43,7 +48,6 @@ class Game(object):
             self.display.fill((0, 0, 0))
             self.draw()
             pygame.display.flip()
-            print(self.snake_parts_position)
 
     def tick(self):
         # input
@@ -71,9 +75,12 @@ class Game(object):
             pass
 
     def draw(self):
-        for i in self.snake_parts_position:
-            pygame.draw.rect(self.display, (245, 125, 20), pygame.Rect(self.matrix_table[i][0], self.matrix_table[i][1], 20, 20))
-        pygame.draw.rect(self.display, (0, 255, 0), pygame.Rect(self.a, self.b, 20, 20))
+        try:
+            for i in self.snake_parts_position:
+                pygame.draw.rect(self.display, (245, 125, 20), pygame.Rect(self.matrix_table[i][0], self.matrix_table[i][1], 20, 20))
+            pygame.draw.rect(self.display, (0, 255, 0), pygame.Rect(self.a, self.b, 20, 20))
+        except:
+            pass
 
         # dots and brackets
         pygame.draw.rect(self.display, (255, 255, 255), pygame.Rect(110, 110, 1, 1))
@@ -91,6 +98,49 @@ class Game(object):
         if self.snake_parts_position[0] == self.new_apple_index:
             self.snake_parts_position.append(self.new_apple_index)
             self.new_apple()
+
+    def game_over(self):
+        if self.matrix_table[self.snake_parts_position[0]][0] == 580 and self.snake_movement == 25 or self.matrix_table[self.snake_parts_position[0]][1] == 100 and self.snake_movement == -1 or self.matrix_table[self.snake_parts_position[0]][0] == 100 and self.snake_movement == -25 or self.matrix_table[self.snake_parts_position[0]][1] == 580 and self.snake_movement == 1:
+            self.show_go_screen()
+
+    def draw_text(self, surf, text, size, x, y):
+        font = pygame.font.Font(self.font_name, size)
+        text_surface = font.render(text, True, (255, 255, 255))
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (x, y)
+        surf.blit(text_surface, text_rect)
+
+    def show_go_screen(self):
+        self.draw_text(self.display, "GAME OVER!", 64, 350, 300)
+        self.draw_text(self.display, "Press a key to Continue", 18, 350, 400)
+        pygame.display.flip()
+        waiting = True
+        # Copied initial data
+        self.fps = 5
+        self.resolution = (1280, 720)
+        self.matrix_table = []
+        for i in range(100, 590, 20):
+            for j in range(100, 590, 20):
+                self.matrix_table.append((i, j))
+        self.snake_parts_position = [0]
+        self.snake_movement = 25
+        self.new_apple_index = random.randint(1, len(self.matrix_table) - 1)
+        self.a = self.matrix_table[self.new_apple_index][0]
+        self.b = self.matrix_table[self.new_apple_index][1]
+        self.font_name = pygame.font.match_font('arial')
+
+        # Init
+        pygame.init()
+        self.display = pygame.display.set_mode(self.resolution)
+        self.fps_clock = pygame.time.Clock()
+        self.fps_delta = 0.0
+        running = True
+        while waiting:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                if event.type == pygame.KEYUP:
+                    waiting = False
 
 
 if __name__ == "__main__":
