@@ -35,6 +35,7 @@ class Game(object):
             self.fps_delta += self.fps_clock.tick() / 1000.0
             while self.fps_delta > 1 / self.fps:
                 self.tick()
+                self.movement()
                 self.eating_apple()
                 self.fps_delta -= 1 / self.fps
 
@@ -56,6 +57,7 @@ class Game(object):
         if keys[pygame.K_KP_8]:
             self.snake_movement = -1
 
+    def movement(self):
         try:
             if len(self.snake_parts_position) > 1:
                 for i in range(len(self.snake_parts_position) - 1, -1, -1):
