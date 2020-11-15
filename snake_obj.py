@@ -7,17 +7,21 @@ class Game(object):
 
     def __init__(self):
         # Config
-        self.fps = 5
+        self.fps = 10
         self.resolution = (1280, 720)
         self.matrix_table = []
-        for i in range(100, 590, 20):
-            for j in range(100, 590, 20):
+        for i in range(0, 1280, 20):
+            for j in range(0, 720, 20):
                 self.matrix_table.append((i, j))
-        self.snake_parts_position = [0]
-        self.snake_movement = 25
-        self.new_apple_index = random.randint(1, len(self.matrix_table) - 1)
+        self.snake_parts_position = [185]
+        self.snake_movement = 36
+        self.new_apple_index = random.randint(185, 1074)
+        while self.matrix_table[self.new_apple_index][0] < 100 or self.matrix_table[self.new_apple_index][1] < 100 or \
+                self.matrix_table[self.new_apple_index][0] > 580 or self.matrix_table[self.new_apple_index][1] > 580:
+            self.new_apple_index = random.randint(185, 1074)
         self.a = self.matrix_table[self.new_apple_index][0]
         self.b = self.matrix_table[self.new_apple_index][1]
+        print(self.a, self.b)
         self.font_name = pygame.font.match_font('arial')
 
         # Init
@@ -38,26 +42,27 @@ class Game(object):
             self.fps_delta += self.fps_clock.tick() / 1000.0
             while self.fps_delta > 1 / self.fps:
                 self.tick()
-                self.game_over()
                 self.movement()
+                self.game_over()
                 self.eating_apple()
                 self.fps_delta -= 1 / self.fps
 
             # drawing
-            print(self.snake_parts_position)
+            print(self.matrix_table[self.snake_parts_position[0]][0], self.matrix_table[self.snake_parts_position[0]][1])
+
             self.display.fill((0, 0, 0))
             self.draw()
             pygame.display.flip()
 
     def tick(self):
-        input
+        #input
         keys = pygame.key.get_pressed()
         if keys[pygame.K_KP_2]:
             self.snake_movement = 1
         if keys[pygame.K_KP_4]:
-            self.snake_movement = -25
+            self.snake_movement = -36
         if keys[pygame.K_KP_6]:
-            self.snake_movement = 25
+            self.snake_movement = 36
         if keys[pygame.K_KP_8]:
             self.snake_movement = -1
 
@@ -90,9 +95,12 @@ class Game(object):
                 pygame.draw.rect(self.display, (255, 255, 255), pygame.Rect(i, j, 1, 1))
 
     def new_apple(self):
-        self.new_apple_index = random.randint(1, len(self.matrix_table) - 1)
+        self.new_apple_index = random.randint(185, 1074)
+        while self.matrix_table[self.new_apple_index][0] < 100 or self.matrix_table[self.new_apple_index][1] < 100 or self.matrix_table[self.new_apple_index][0] > 580 or self.matrix_table[self.new_apple_index][1] > 580:
+            self.new_apple_index = random.randint(185, 1074)
         self.a = self.matrix_table[self.new_apple_index][0]
         self.b = self.matrix_table[self.new_apple_index][1]
+        print(self.a, self.b)
 
     def eating_apple(self):
         if self.snake_parts_position[0] == self.new_apple_index:
@@ -101,7 +109,7 @@ class Game(object):
             self.new_apple()
 
     def game_over(self):
-        if self.matrix_table[self.snake_parts_position[0]][0] == 580 and self.snake_movement == 25 or self.matrix_table[self.snake_parts_position[0]][1] == 100 and self.snake_movement == -1 or self.matrix_table[self.snake_parts_position[0]][0] == 100 and self.snake_movement == -25 or self.matrix_table[self.snake_parts_position[0]][1] == 580 and self.snake_movement == 1:
+        if self.matrix_table[self.snake_parts_position[0]][0] < 100 or self.matrix_table[self.snake_parts_position[0]][1] < 100 or self.matrix_table[self.snake_parts_position[0]][0] > 580 or self.matrix_table[self.snake_parts_position[0]][1] > 580 :
             self.show_go_screen()
         if len(self.snake_parts_position) != len(set(self.snake_parts_position)):
             self.show_go_screen()

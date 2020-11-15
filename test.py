@@ -1,18 +1,10 @@
-# import random
-# matrix_table = []
-# for i in range(100, 590, 20):
-#     for j in range(100, 590, 20):
-#         matrix_table.append((i, j))
-#
-# for i in matrix_table:
-#     print(i)
-# new_apple = random.randint(1, len(matrix_table))
-# print(new_apple)
-# print(matrix_table[new_apple])
-# print(matrix_table[new_apple][0])
-# print(matrix_table[new_apple][1])
-# print(type(matrix_table))
-# print(type(matrix_table[new_apple]))
+list1 = list(range(110,600,20))
+list2 = []
 
-for i in range(2, 0, -1):
-    print(i)
+
+for i in range(len(list1)):
+	for j in range(len(list1)):
+		list2.append([list1[i],list1[j],False])
+
+for i in range(len(list2)):
+    print(list2[i])
