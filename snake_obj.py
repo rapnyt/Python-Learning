@@ -7,8 +7,8 @@ class Game(object):
 
     def __init__(self):
         # Config
-        self.fps = 8
-        self.resolution = (1280, 720)
+        self.fps = 10
+        self.resolution = (700, 700)
         self.matrix_table = []
         for i in range(0, 1280, 20):
             for j in range(0, 720, 20):
@@ -21,7 +21,6 @@ class Game(object):
             self.new_apple_index = random.randint(185, 1074)
         self.a = self.matrix_table[self.new_apple_index][0]
         self.b = self.matrix_table[self.new_apple_index][1]
-        # print(self.a, self.b, self.new_apple_index)
         self.font_name = pygame.font.match_font('arial')
 
         # Init
@@ -31,17 +30,13 @@ class Game(object):
         self.fps_delta = 0.0
 
         while True:
-            # handle events
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit(0)
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                    sys.exit(0)
+            # handle events like player input
+            # self.events()
 
             # ticking
             self.fps_delta += self.fps_clock.tick() / 1000.0
             while self.fps_delta > 1 / self.fps:
-                self.tick()
+                self.events()
                 self.movement()
                 self.game_over()
                 self.eating_apple()
@@ -52,29 +47,32 @@ class Game(object):
             self.draw()
             pygame.display.flip()
 
-    def tick(self):
-        #input
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_KP_2]:
-            if self.snake_movement == -1:
-                pass
-            else:
-                self.snake_movement = 1
-        if keys[pygame.K_KP_4]:
-            if self.snake_movement == 36:
-                pass
-            else:
-                self.snake_movement = -36
-        if keys[pygame.K_KP_6]:
-            if self.snake_movement == -36:
-                pass
-            else:
-                self.snake_movement = 36
-        if keys[pygame.K_KP_8]:
-            if self.snake_movement == 1:
-                pass
-            else:
-                self.snake_movement = -1
+    def events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit(0)
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                sys.exit(0)
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_KP_2:
+                if self.snake_movement == -1:
+                    pass
+                else:
+                    self.snake_movement = 1
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_KP_4:
+                if self.snake_movement == 36:
+                    pass
+                else:
+                    self.snake_movement = -36
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_KP_6:
+                if self.snake_movement == -36:
+                    pass
+                else:
+                    self.snake_movement = 36
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_KP_8:
+                if self.snake_movement == 1:
+                    pass
+                else:
+                    self.snake_movement = -1
 
     def movement(self):
         try:
@@ -91,10 +89,6 @@ class Game(object):
 
     def draw(self):
         try:
-            # for i in self.snake_parts_position:
-            #     pygame.draw.rect(self.display, (245, 125, 20), pygame.Rect(self.matrix_table[i][0], self.matrix_table[i][1], 20, 20))
-            # pygame.draw.rect(self.display, (0, 255, 0), pygame.Rect(self.a, self.b, 20, 20))
-
             for i in self.snake_parts_position:
                 if i == self.snake_parts_position[0]:
                     pygame.draw.circle(self.display, (255, 255, 0),
@@ -118,7 +112,6 @@ class Game(object):
             self.new_apple_index = random.randint(185, 1074)
         self.a = self.matrix_table[self.new_apple_index][0]
         self.b = self.matrix_table[self.new_apple_index][1]
-        print(self.a, self.b)
 
     def eating_apple(self):
         if self.snake_parts_position[0] == self.new_apple_index:

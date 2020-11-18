@@ -16,3 +16,6 @@ new_apple = 511
 
 if new_apple in list1:
 	print("?")
+
+num = int(input("Enter ASCII value: "))
+print(chr(num))
