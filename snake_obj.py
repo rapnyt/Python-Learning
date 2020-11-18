@@ -7,7 +7,7 @@ class Game(object):
 
     def __init__(self):
         # Config
-        self.fps = 10
+        self.fps = 1
         self.resolution = (700, 700)
         self.matrix_table = []
         for i in range(0, 1280, 20):
@@ -43,9 +43,12 @@ class Game(object):
                 self.fps_delta -= 1 / self.fps
 
             # drawing
-            self.display.fill((0, 0, 0))
-            self.draw()
-            pygame.display.flip()
+            self.drawing_fill_flip()
+
+    def drawing_fill_flip(self):
+        self.display.fill((0, 0, 0))
+        self.draw()
+        pygame.display.flip()
 
     def events(self):
         for event in pygame.event.get():
