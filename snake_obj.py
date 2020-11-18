@@ -120,6 +120,7 @@ class Game(object):
         if self.snake_parts_position[0] == self.new_apple_index:
             self.snake_parts_position.append(self.snake_parts_position[-1])
             self.new_apple()
+            self.fps += 1
 
     def game_over(self):
         if self.matrix_table[self.snake_parts_position[0]][0] < 100 or self.matrix_table[self.snake_parts_position[0]][1] < 100 or self.matrix_table[self.snake_parts_position[0]][0] > 580 or self.matrix_table[self.snake_parts_position[0]][1] > 580 :
